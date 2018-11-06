@@ -62,11 +62,11 @@ class BookInstance(models.Model):
     )
 
     status = models.CharField(
-        max_length = 1,
-        choices = LOAN_STATUS,
-        blank = True,
-        default = 'm',
-        help_text = 'Book Availibility'
+        max_length=1,
+        choices=LOAN_STATUS,
+        blank=True,
+        default='m',
+        help_text='Book Availability'
     )
 
     class Meta:
@@ -80,6 +80,9 @@ class BookInstance(models.Model):
         if self.due_back and date.today() > self.due_back:
             return True
         return False
+
+    """ adding new function to model for adding permissions """
+    permissions = (("can_mark_returned", "set book as returned"),)
 
 
 class Author(models.Model):
