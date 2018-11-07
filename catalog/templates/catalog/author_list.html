@@ -1,16 +1,26 @@
+
 {% extends "catalog/base_generic.html" %}
 
 {% block content %}
-    <h1>Authors</h1>
-    {% if author_list %}
-        <ul>
-        {% for author in author_list %}
-            <li>
-                <a href="{{ author.get_absolute_url }}">{{ author.first_name }}</a> {{ author.last_name }}
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no Authors yet.</p>
-    {% endif %}
+    <h1 class="theme-color pt-4">Author's</h1>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>Author</th>
+            </tr>
+            {% if author_list %}
+                {% for author in author_list %}
+                <tr>
+                    <td>
+                        <a href="{{ author.get_absolute_url }}">{{ author.first_name }}</a>&nbsp; {{ author.last_name }}
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td>There are no Authors yet.</td>
+                </tr>
+            {% endif %}
+        </table>
+    </div>
 {% endblock %}

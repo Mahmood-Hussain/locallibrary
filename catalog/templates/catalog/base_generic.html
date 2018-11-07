@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet">
   <!-- Add additional CSS in static file -->
   {% load static %}
   <link rel="stylesheet" href="{% static 'catalog/css/styles.css' %}">
@@ -12,30 +13,55 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-2">
-      {% block sidebar %}
-        <ul class="sidebar-nav">
-          <li><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="{% url 'books' %}">All books</a></li>
-          <li><a href="{% url 'authors' %}">All authors</a></li>
-          {% if user.is_authenticated %}
-              <li>User: {{ user.get_username }}</li>
-              <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
-              <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
-              {% if user.is_staff %}
-                  <hr>
-                  <li>Staff</li>
-                  {% if perms.catalog.can_mark_returned %}
-                        <!-- We can mark a BookInstance as returned. -->
-                        <!-- Perhaps add code to link to a "book return" view here. -->
-                      <li><a href="{% url 'all-borrowed' %}">Borrowed</a></li>
+      <div class="col-sm-2 p-0">
+        {% block sidebar %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+             </button>
+             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="nav flex-sm-column flex-row">
+                  <li class="nav-item">
+                      <img class="logo py-3" src="{% static 'catalog/img/logo.png' %}" alt="Logo" style="width: 120px;">
+                  </li>
+                  <li class="nav-item btn btn-warning btn-block">
+                      <a class="nav-link" href="{% url 'index' %}">Home</a>
+                  </li>
+                  <li class="nav-item btn btn-warning btn-block">
+                      <a class="nav-link" href="{% url 'books' %}">All books</a>
+                  </li>
+                  <li class="nav-item btn btn-warning btn-block">
+                      <a class="nav-link" href="{% url 'authors' %}">All authors</a>
+                  </li>
+                  {% if user.is_authenticated %}
+                      <li class="py-2">User: </li>
+                       <li class="nav-item pb-2 text-primary"> <strong>{{ user.get_username }}</strong></li>
+                      <li class="nav-item btn btn-warning btn-block">
+                          <a class="nav-link" href="{% url 'my-borrowed' %}">My Borrowed</a>
+                      </li>
+                      <li class="nav-item btn btn-warning btn-block">
+                          <a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+                      </li>
+                      {% if user.is_staff %}
+                          <hr>
+                          <li>Staff</li>
+                          {% if perms.catalog.can_mark_returned %}
+                                <!-- We can mark a BookInstance as returned. -->
+                                <!-- Perhaps add code to link to a "book return" view here. -->
+                              <li class="nav-item btn btn-warning btn-block">
+                                  <a class="nav-link" href="{% url 'all-borrowed' %}">Borrowed</a>
+                              </li>
+                          {% endif %}
+                      {% endif %}
+                  {% else %}
+                      <li class="nav-item btn btn-warning btn-block">
+                          <a class="nav-link" href="{% url 'login' %}?next={{ request.path }}">Login</a>
+                      </li>
                   {% endif %}
-              {% endif %}
-          {% else %}
-              <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
-          {% endif %}
-        </ul>
-     {% endblock %}
+                </div>
+            </div>
+        </nav>
+        {% endblock %}
       </div>
       <div class="col-sm-10 ">
           {% block content %}{% endblock %}
@@ -55,9 +81,12 @@
                   </span>
                 </div>
               {% endif %}
-            {% endblock %}
+           {% endblock %}
       </div>
     </div>
   </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>

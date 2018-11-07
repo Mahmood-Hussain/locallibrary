@@ -1,5 +1,20 @@
-.sidebar-nav {
-    margin-top: 20px;
-    padding: 0;
-    list-style: none;
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 200;
+}
+.nav li a {
+    color: aliceblue;
+}
+.navbar-default {
+    background-color: #61a4e7 !important;
+}
+.btn-warning {
+    background-color: #650c10 !important;
+}
+.theme-color {
+    color: #650c10 !important;
+}
+@media screen and (max-width: 1000px) {
+
 }

@@ -1,16 +1,27 @@
 {% extends "catalog/base_generic.html" %}
 
 {% block content %}
-    <h1>Book List</h1>
-    {% if book_list %}
-        <ul>
-        {% for book in book_list %}
-            <li>
-                <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> (book.author)
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no available books in the library.</p>
-    {% endif %}
+    <h1 class="theme-color pt-4">Book List</h1>
+    <div class="table-responsive">
+        <table class="table table-striped table-condensed table-bordered">
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+            </tr>
+            {% if book_list %}
+                {% for book in book_list %}
+                <tr>
+                    <td>
+                        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+                    </td>
+                    <td>{{ book.author }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td>There are no available books in the library.</td>
+                </tr>
+            {% endif %}
+        </table>
+    </div>
 {% endblock %}
